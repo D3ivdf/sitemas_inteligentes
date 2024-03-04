@@ -28,14 +28,14 @@ t2.penup()
 
 t3.penup()
 t3.begin_fill()
-t3.setpos(140,90)
+t3.setpos(140,-90)
 t3.write("Lado C", align="center",font=("Arial",15,"normal"))
 t3.end_fill()
 t3.penup()
 
 t4.penup()
 t4.begin_fill()
-t4.setpos(-140,90)
+t4.setpos(-140,-90)
 t4.write("Lado D", align="center",font=("Arial",15,"normal"))
 t4.end_fill()
 t4.penup()
@@ -56,7 +56,7 @@ class Ambiente(object):
 
         self.A=turtle.Turtle()
         self.A.penup()
-        self.A.setpos(-120,20)
+        self.A.setpos(-120,0)
         self.A.begin_fill()
         self.A.shape("square")
         self.A.turtlesize(5)
@@ -82,7 +82,7 @@ class Ambiente(object):
 
         self.C=turtle.Turtle()
         self.C.penup()
-        self.C.setpos(120,-90)
+        self.C.setpos(120,-150)
         self.C.begin_fill()
         self.C.shape("square")
         self.C.turtlesize(5)
@@ -92,6 +92,21 @@ class Ambiente(object):
             self.C.color("yellow")
         self.C.end_fill()
         self.C.penup()
+        
+
+        self.D=turtle.Turtle()
+        self.D.penup()
+        self.D.setpos(-120,-150)
+        self.D.begin_fill()
+        self.D.shape("square")
+        self.D.turtlesize(5)
+        if self.localizacion["D"]==0:
+            self.D.color("green")
+        else:
+            self.D.color("yellow")
+        self.D.end_fill()
+        self.D.penup()
+
 
 
 
@@ -107,7 +122,7 @@ class IAspirador(Ambiente):
         global Asp
         Asp=turtle.Turtle()
         Asp.penup()
-        Asp.setpos(0,0)
+        Asp.setpos(0,-80)
         Asp.begin_fill()
         Asp.shape("triangle")
         #Asp.turtlesize(5)
@@ -117,7 +132,7 @@ class IAspirador(Ambiente):
 
         self.contador_turtle = turtle.Turtle()
         self.contador_turtle.penup()
-        self.contador_turtle.setpos(0, -50)
+        self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
 
     def volver_al_centro(self):
