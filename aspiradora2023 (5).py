@@ -26,6 +26,21 @@ t2.write("Lado B", align="center",font=("Arial",15,"normal"))
 t2.end_fill()
 t2.penup()
 
+t3.penup()
+t3.begin_fill()
+t3.setpos(140,90)
+t3.write("Lado C", align="center",font=("Arial",15,"normal"))
+t3.end_fill()
+t3.penup()
+
+t4.penup()
+t4.begin_fill()
+t4.setpos(-140,90)
+t4.write("Lado D", align="center",font=("Arial",15,"normal"))
+t4.end_fill()
+t4.penup()
+
+
 class Ambiente(object):
     def __init__(self):
     # Estado limpio: 0   Estado Sucio: 1
@@ -34,12 +49,14 @@ class Ambiente(object):
     # Las condiciones de la localizacion inicial son aleatorias
         self.localizacion["A"]=random.choice([0,1])
         self.localizacion["B"]=random.choice([0,1])
+        self.localizacion["C"]=random.choice([0,1])
+        self.localizacion["D"]=random.choice([0,1])
         print(40*"=")
         print('esta es la inicial ',self.localizacion)
 
         self.A=turtle.Turtle()
         self.A.penup()
-        self.A.setpos(-120,0)
+        self.A.setpos(-120,20)
         self.A.begin_fill()
         self.A.shape("square")
         self.A.turtlesize(5)
@@ -62,6 +79,20 @@ class Ambiente(object):
             self.B.color("yellow")
         self.B.end_fill()
         self.B.penup()
+
+        self.C=turtle.Turtle()
+        self.C.penup()
+        self.C.setpos(120,-90)
+        self.C.begin_fill()
+        self.C.shape("square")
+        self.C.turtlesize(5)
+        if self.localizacion["C"]==0:
+            self.C.color("green")
+        else:
+            self.C.color("yellow")
+        self.C.end_fill()
+        self.C.penup()
+
 
 
 class IAspirador(Ambiente):
