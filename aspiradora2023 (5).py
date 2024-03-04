@@ -1,0 +1,176 @@
+
+#%% Dependences
+import random
+import turtle
+from time import sleep
+
+#%% Variables
+global t1,t2,t3,t4
+t1=turtle.Turtle()
+t2=turtle.Turtle()
+t3=turtle.Turtle()
+t4=turtle.Turtle()
+
+#%%main
+t1.penup()
+t1.begin_fill()
+t1.setpos(-140,60)
+t1.write("Lado A", align="center",font=("Arial",15,"normal"))
+t1.end_fill()
+t1.penup()
+
+t2.penup()
+t2.begin_fill()
+t2.setpos(140,60)
+t2.write("Lado B", align="center",font=("Arial",15,"normal"))
+t2.end_fill()
+t2.penup()
+
+class Ambiente(object):
+    def __init__(self):
+    # Estado limpio: 0   Estado Sucio: 1
+    # Condic iniciales (Sucio, Sucio) ---- Aleatorio 
+        self.localizacion={"A":"1","B":"1"}
+    # Las condiciones de la localizacion inicial son aleatorias
+        self.localizacion["A"]=random.choice([0,1])
+        self.localizacion["B"]=random.choice([0,1])
+        print(40*"=")
+        print('esta es la inicial ',self.localizacion)
+
+        self.A=turtle.Turtle()
+        self.A.penup()
+        self.A.setpos(-120,0)
+        self.A.begin_fill()
+        self.A.shape("square")
+        self.A.turtlesize(5)
+        if self.localizacion["A"]==0:
+            self.A.color("green")
+        else:
+            self.A.color("blue")
+        self.A.end_fill()
+        self.A.penup()
+
+        self.B=turtle.Turtle()
+        self.B.penup()
+        self.B.setpos(120,0)
+        self.B.begin_fill()
+        self.B.shape("square")
+        self.B.turtlesize(5)
+        if self.localizacion["B"]==0:
+            self.B.color("green")
+        else:
+            self.B.color("yellow")
+        self.B.end_fill()
+        self.B.penup()
+
+
+class IAspirador(Ambiente):
+    def __init__(self,Ambiente):
+        # Localización del aspirador, si el salon es A o B
+        global localizacionAspirador
+        localizacionAspirador= None
+        self.contador_movimientos = 0
+        print(40*"*")
+        print("El ambiente esta: ",Ambiente.localizacion)
+        
+        global Asp
+        Asp=turtle.Turtle()
+        Asp.penup()
+        Asp.setpos(0,0)
+        Asp.begin_fill()
+        Asp.shape("triangle")
+        #Asp.turtlesize(5)
+        Asp.color("red")
+        Asp.end_fill()
+        Asp.penup()
+
+        self.contador_turtle = turtle.Turtle()
+        self.contador_turtle.penup()
+        self.contador_turtle.setpos(0, -50)
+        self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+
+    def volver_al_centro(self):
+        if localizacionAspirador == "A":
+            print("\nSe mueve de vuelta al centro desde el lado B...\n")
+            Asp.setpos(0, 0)
+        else:
+            print("\nSe mueve de vuelta al centro desde el lado A...\n")
+            Asp.setpos(0, 0)
+    def verifica_estado_aspirador(self, Ambiente):
+        if Ambiente.localizacion["A"]==1:
+            result1="El aspirador es colocado en el local A \n"
+            self.contador_movimientos += 1
+            self.contador_turtle.clear()
+            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            Asp.speed(10)
+            Asp.setpos(-120,0)
+            return print(result1)
+        elif Ambiente.localizacion["B"]==1:
+            result2="El aspirador es colocado en el local B \n"
+            self.contador_movimientos += 1
+            self.contador_turtle.clear()
+            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            Asp.speed(10)
+            Asp.setpos(120,0)
+            return print(result2)
+    
+    def verifica_estado_ambiente(self,Ambiente):
+        # Si el lado A estuviese sucio
+        if Ambiente.localizacion["A"]==1 and Ambiente.localizacion["B"]==0:
+            print("El lado A esta sucio...")
+            IAspirador.aspiraA(self,Ambiente)
+            print("El lado B ya esta limpio")
+        elif Ambiente.localizacion["A"]==0 and Ambiente.localizacion["B"]==1:
+            print("El lado B esta sucio...")
+            IAspirador.aspiraB(self,Ambiente)
+            print("El lado A ya esta limpio")
+        elif Ambiente.localizacion["A"]==1 and Ambiente.localizacion["B"]==1:
+            print("El lado A esta sucio...")
+            IAspirador.aspiraA(self,Ambiente)
+            IAspirador.moverse(self,Ambiente)
+            self.contador_movimientos += 1
+            self.contador_turtle.clear()
+            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            IAspirador.aspiraB(self,Ambiente)
+        else:
+            print("Todo esta limpio")
+            return False
+    
+    def aspiraA(self, Ambiente):
+        Ambiente.localizacion["A"]=0
+        sleep(1.5)
+        print("El lado A fue limpiado")
+        Ambiente.A.color("green")   
+    
+    def aspiraB(self,Ambiente):
+        Ambiente.localizacion["B"]=0
+        sleep(1.5)
+        print("El lado B fue limpiado")
+        Ambiente.B.color("green")
+
+    def moverse(self,Ambiente):
+        if Ambiente.localizacion["B"]==1:
+            print("\nSe mueve para el lado B..\n.")
+            localizacionAspirador="B"
+            Asp.forward(240)
+        elif Ambiente.localizacion["A"]==1:
+            print("\n Se mueve para el lado A...")
+            localizacionAspirador="A"
+            Asp.back(240)
+
+
+
+#####   LIMPIAR
+ElAmbiente=Ambiente()
+ElAspirador=IAspirador(ElAmbiente)
+sleep(3)
+ElAspirador.verifica_estado_aspirador(ElAmbiente)
+sleep(3)
+ElAspirador.verifica_estado_ambiente(ElAmbiente)
+ElAspirador.volver_al_centro()
+
+
+#### Al terminar muestra los dos lados limpios
+print("\nDespues de la accion del  aspirador, el ambiente esta:  ", ElAmbiente.localizacion)
+sleep(5)
+#quit()
