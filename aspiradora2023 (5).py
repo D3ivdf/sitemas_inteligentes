@@ -133,12 +133,15 @@ class IAspirador(Ambiente):
         self.contador_turtle.penup()
         self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+        self.rendimiento_turtle = turtle.Turtle()
+        self.rendimiento_turtle.penup()
+        self.rendimiento_turtle.setpos(0, -150)
+        self.rendimiento_turtle.write("Rendimiento: {} %".format(self.desempeño()), align="center", font=("Arial", 10, "normal"))
     def sumar_movimiento(self):
         self.contador_movimientos += 1
         self.contador_turtle.clear()
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-    
-        
+
     def verifica_estado_ambiente(self,Ambiente):
         ambientes = ["A", "B", "C", "D"]
         for habitacion in ambientes:
@@ -175,9 +178,17 @@ class IAspirador(Ambiente):
     def desempeño(self):
         desempeño = 0
         desepeño_max = 100
-        desempeño = (self.contador_movimientos)*desepeño_max
-        
-        return desempeño/4
+        desempeño = (self.contador_movimientos*desepeño_max)/4
+        self.rendimiento_turtle.clear()
+        self.rendimiento_turtle.write("Rendimiento: {} %".format(desempeño), align="center", font=("Arial", 10, "normal"))
+        return desempeño
+
+
+
+
+
+
+#####   LIMPIAR
        
 ElAmbiente=Ambiente()
 ElAspirador=IAspirador(ElAmbiente)
