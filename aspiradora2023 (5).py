@@ -138,9 +138,8 @@ class IAspirador(Ambiente):
         self.contador_turtle.clear()
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
     
-    
+        
     def verifica_estado_ambiente(self,Ambiente):
-        sucio = False
         ambientes = ["A", "B", "C", "D"]
         for habitacion in ambientes:
             if Ambiente.localizacion[habitacion] == 1:
@@ -148,8 +147,7 @@ class IAspirador(Ambiente):
                 IAspirador.mover_aspiradora(self, Ambiente, habitacion)
                 sleep(3)
                 IAspirador.aspirar(self, Ambiente, habitacion)
-                sucio = True
-       
+
         Asp.setpos(0, -80)
     
         
@@ -163,8 +161,15 @@ class IAspirador(Ambiente):
 
     def mover_aspiradora(self, Ambiente, habitacion):
         x_objetivo, y_objetivo = Ambiente.posiciones[habitacion]
-        posx,posy = Asp.pos()
-        
+        x_actual, y_actual = Asp.pos()
+
+        if x_actual != x_objetivo and y_actual != y_objetivo and x_actual != 0 and y_actual != -80:
+           
+            IAspirador.sumar_movimiento(self) 
+            if x_actual != x_objetivo:
+                Asp.setx(x_objetivo)
+            else:
+                Asp.sety(y_objetivo)
         Asp.setpos(x_objetivo, y_objetivo)
     
     def desempeño(self):
