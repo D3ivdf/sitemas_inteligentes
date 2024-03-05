@@ -135,38 +135,32 @@ class IAspirador(Ambiente):
         self.contador_turtle.penup()
         self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-
+    def sumar_movimiento(self):
+        self.contador_movimientos += 1
+        self.contador_turtle.clear()
+        self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
     def verifica_estado_aspirador(self, Ambiente):
 
         if Ambiente.localizacion["A"]==1:
             result1="El aspirador es colocado en el local A \n"
-            self.contador_movimientos += 1
-            self.contador_turtle.clear()
-            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            self.sumar_movimiento()
             Asp.speed(10)
             Asp.setpos(-120,0)
             return print(result1)
         elif Ambiente.localizacion["B"]==1:
             result2="El aspirador es colocado en el local B \n"
-            self.contador_movimientos += 1
-            self.contador_turtle.clear()
-            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            self.sumar_movimiento()
             Asp.speed(10)
             Asp.setpos(120,0)
             return print(result2)
         elif Ambiente.localizacion["C"]==1:
             result3="El aspirador es colocado en el local C \n"
-            self.contador_movimientos += 1
-            self.contador_turtle.clear()
-            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-            Asp.speed(10)
+            self.sumar_movimiento()
             Asp.setpos(120,-150)
             return print(result3)
         elif Ambiente.localizacion["D"]==1:
             result4="El aspirador es colocado en el local D \n"
-            self.contador_movimientos += 1
-            self.contador_turtle.clear()
-            self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+            self.sumar_movimiento()
             Asp.speed(10)
             Asp.setpos(-120,-150)
             return print(result4)
