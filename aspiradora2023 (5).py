@@ -109,6 +109,8 @@ class Ambiente(object):
         self.D.penup()
 
 
+
+
 class IAspirador(Ambiente):
     def __init__(self,Ambiente):
         # Localización del aspirador, si el salon es A o B
@@ -133,12 +135,15 @@ class IAspirador(Ambiente):
         self.contador_turtle.penup()
         self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+        self.rendimiento_turtle = turtle.Turtle()
+        self.rendimiento_turtle.penup()
+        self.rendimiento_turtle.setpos(0, -150)
+        self.rendimiento_turtle.write("Rendimiento: {} %".format(self.desempeño()), align="center", font=("Arial", 10, "normal"))
     def sumar_movimiento(self):
         self.contador_movimientos += 1
         self.contador_turtle.clear()
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-    
-    
+
     def verifica_estado_ambiente(self,Ambiente):
         sucio = False
         ambientes = ["A", "B", "C", "D"]
@@ -149,9 +154,9 @@ class IAspirador(Ambiente):
                 sleep(3)
                 IAspirador.aspirar(self, Ambiente, habitacion)
                 sucio = True
-       
         Asp.setpos(0, -80)
     
+  
         
     def aspirar(self, Ambiente, habitacion):
         self.sumar_movimiento()
@@ -163,22 +168,29 @@ class IAspirador(Ambiente):
 
     def mover_aspiradora(self, Ambiente, habitacion):
         x_objetivo, y_objetivo = Ambiente.posiciones[habitacion]
-        pos = Asp.pos()
-        if pos == 
         Asp.setpos(x_objetivo, y_objetivo)
     
     def desempeño(self):
         desempeño = 0
         desepeño_max = 100
-        desempeño = (self.contador_movimientos)*desepeño_max
-        
-        return desempeño/4
-       
+        desempeño = (self.contador_movimientos*desepeño_max)/4
+        self.rendimiento_turtle.clear()
+        self.rendimiento_turtle.write("Rendimiento: {} %".format(desempeño), align="center", font=("Arial", 10, "normal"))
+        return desempeño
+
+
+
+
+
+
+#####   LIMPIAR
 ElAmbiente=Ambiente()
 ElAspirador=IAspirador(ElAmbiente)
 
 sleep(3)
 ElAspirador.verifica_estado_ambiente(ElAmbiente)
+
+
 
 #### Al terminar muestra los dos lados limpios
 print("\nDespues de la accion del  aspirador, el ambiente esta:  ", ElAmbiente.localizacion)
