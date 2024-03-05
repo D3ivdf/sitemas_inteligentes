@@ -139,35 +139,34 @@ class IAspirador(Ambiente):
         self.contador_movimientos += 1
         self.contador_turtle.clear()
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-    def verifica_estado_aspirador(self, Ambiente):
+    # def verifica_estado_aspirador(self, Ambiente):
 
-        if Ambiente.localizacion["A"]==1:
-            result1="El aspirador es colocado en el local A \n"
-            self.sumar_movimiento()
-            Asp.speed(10)
-            Asp.setpos(-120,0)
-            return print(result1)
-        elif Ambiente.localizacion["B"]==1:
-            result2="El aspirador es colocado en el local B \n"
-            self.sumar_movimiento()
-            Asp.speed(10)
-            Asp.setpos(120,0)
-            return print(result2)
-        elif Ambiente.localizacion["C"]==1:
-            result3="El aspirador es colocado en el local C \n"
-            self.sumar_movimiento()
-            Asp.setpos(120,-150)
-            return print(result3)
-        elif Ambiente.localizacion["D"]==1:
-            result4="El aspirador es colocado en el local D \n"
-            self.sumar_movimiento()
-            Asp.speed(10)
-            Asp.setpos(-120,-150)
-            return print(result4)
+    #     if Ambiente.localizacion["A"]==1:
+    #         result1="El aspirador es colocado en el local A \n"
+    #         self.sumar_movimiento()
+    #         Asp.speed(10)
+    #         Asp.setpos(-120,0)
+    #         return print(result1)
+    #     elif Ambiente.localizacion["B"]==1:
+    #         result2="El aspirador es colocado en el local B \n"
+    #         self.sumar_movimiento()
+    #         Asp.speed(10)
+    #         Asp.setpos(120,0)
+    #         return print(result2)
+    #     elif Ambiente.localizacion["C"]==1:
+    #         result3="El aspirador es colocado en el local C \n"
+    #         self.sumar_movimiento()
+    #         Asp.setpos(120,-150)
+    #         return print(result3)
+    #     elif Ambiente.localizacion["D"]==1:
+    #         result4="El aspirador es colocado en el local D \n"
+    #         self.sumar_movimiento()
+    #         Asp.speed(10)
+    #         Asp.setpos(-120,-150)
+    #         return print(result4)
     
     def verifica_estado_ambiente(self,Ambiente):
         sucio = False
-
         ambientes = ["A", "B", "C", "D"]
         for habitacion in ambientes:
             if Ambiente.localizacion[habitacion] == 1:
@@ -199,31 +198,11 @@ class IAspirador(Ambiente):
         #         return False
         Asp.setpos(0, -80)
     
-    def aspiraA(self, Ambiente):
-        Ambiente.localizacion["A"]=0
-        sleep(1.5)
-        print("El lado A fue limpiado")
-        Ambiente.A.color("green")   
-    
-    def aspiraB(self,Ambiente):
-        Ambiente.localizacion["B"]=0
-        sleep(1.5)
-        print("El lado B fue limpiado")
-        Ambiente.B.color("green")
-    
-    def aspiraC(self,Ambiente):
-        Ambiente.localizacion["C"]=0
-        sleep(1.5)
-        print("El lado C fue limpiado")
-        Ambiente.C.color("green")
-        
-    def aspiraD(self,Ambiente):
-        Ambiente.localizacion["D"]=0
-        sleep(1.5)
-        print("El lado D fue limpiado")
-        Ambiente.D.color("green")
+  
         
     def aspirar(self, Ambiente, habitacion):
+        self.sumar_movimiento()
+        print("El aspirador se coloca en la habitaciónaaaaaaaaaaa", habitacion)
         Ambiente.localizacion[habitacion] = 0
         sleep(1.5)
         print("La habitación", habitacion, "fue limpiada.")
@@ -234,12 +213,12 @@ class IAspirador(Ambiente):
         Asp.setpos(x_objetivo, y_objetivo)
 
        
-    def moverse(self,Ambiente):
-        posiciones = [[-120, 0], [120, 0], [120, -150], [-120, -150]]
-        ambientes = ["A", "B", "C", "D"]
-        for ambiente in ambientes:
-            if Ambiente.locazacion[ambiente] == 1:
-                localizacionAspirador=ambiente
+    # def moverse(self,Ambiente):
+    #     posiciones = [[-120, 0], [120, 0], [120, -150], [-120, -150]]
+    #     ambientes = ["A", "B", "C", "D"]
+    #     for ambiente in ambientes:
+    #         if Ambiente.locazacion[ambiente] == 1:
+                # localizacionAspirador=ambiente
                 
         # if Ambiente.localizacion["B"]==1:
         #     print("\nSe mueve para el lado B..\n.")
@@ -255,8 +234,7 @@ class IAspirador(Ambiente):
 #####   LIMPIAR
 ElAmbiente=Ambiente()
 ElAspirador=IAspirador(ElAmbiente)
-sleep(3)
-ElAspirador.verifica_estado_aspirador(ElAmbiente)
+
 sleep(3)
 ElAspirador.verifica_estado_ambiente(ElAmbiente)
 
