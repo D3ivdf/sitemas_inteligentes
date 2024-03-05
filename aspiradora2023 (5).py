@@ -133,16 +133,14 @@ class IAspirador(Ambiente):
         self.contador_turtle.penup()
         self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-        self.rendimiento_turtle = turtle.Turtle()
-        self.rendimiento_turtle.penup()
-        self.rendimiento_turtle.setpos(0, -150)
-        self.rendimiento_turtle.write("Rendimiento: {} %".format(self.desempeño()), align="center", font=("Arial", 10, "normal"))
     def sumar_movimiento(self):
         self.contador_movimientos += 1
         self.contador_turtle.clear()
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
-
+    
+        
     def verifica_estado_ambiente(self,Ambiente):
+        sucio = False
         ambientes = ["A", "B", "C", "D"]
         for habitacion in ambientes:
             if Ambiente.localizacion[habitacion] == 1:
@@ -150,13 +148,12 @@ class IAspirador(Ambiente):
                 IAspirador.mover_aspiradora(self, Ambiente, habitacion)
                 sleep(3)
                 IAspirador.aspirar(self, Ambiente, habitacion)
-
+       
         Asp.setpos(0, -80)
     
         
     def aspirar(self, Ambiente, habitacion):
         self.sumar_movimiento()
-        print("El aspirador se coloca en la habitaciónaaaaaaaaaaa", habitacion)
         Ambiente.localizacion[habitacion] = 0
         sleep(1.5)
         print("La habitación", habitacion, "fue limpiada.")
@@ -175,20 +172,11 @@ class IAspirador(Ambiente):
                 Asp.sety(y_objetivo)
         Asp.setpos(x_objetivo, y_objetivo)
     
-    def desempeño(self):
-        desempeño = 0
-        desepeño_max = 100
-        desempeño = (self.contador_movimientos*desepeño_max)/4
-        self.rendimiento_turtle.clear()
-        self.rendimiento_turtle.write("Rendimiento: {} %".format(desempeño), align="center", font=("Arial", 10, "normal"))
-        return desempeño
-
-
-
-
-
-
-#####   LIMPIAR
+    def desempeño(self,Ambiente):
+        total_habitaciones = len(Ambiente.localizacion)
+        habitaciones_limpias = sum(1 for estado in Ambiente.localizacion.values() if estado == 0)
+        porcentaje_limpias = (habitaciones_limpias / total_habitaciones) * 100
+        return porcentaje_limpias
        
 ElAmbiente=Ambiente()
 ElAspirador=IAspirador(ElAmbiente)
@@ -199,6 +187,6 @@ ElAspirador.verifica_estado_ambiente(ElAmbiente)
 #### Al terminar muestra los dos lados limpios
 print("\nDespues de la accion del  aspirador, el ambiente esta:  ", ElAmbiente.localizacion)
 sleep(5)
-print("\nEl desempeño del aspirador es: ", ElAspirador.desempeño(), "%")
+print("\nEl desempeño del aspirador es: ", ElAspirador.desempeño(ElAmbiente), "%")
 sleep(5)
 #quit()
