@@ -133,6 +133,10 @@ class IAspirador(Ambiente):
         self.contador_turtle.penup()
         self.contador_turtle.setpos(0, -120)
         self.contador_turtle.write("Movimientos: {}".format(self.contador_movimientos), align="center", font=("Arial", 12, "normal"))
+        self.rendimiento_turtle = turtle.Turtle()
+        self.rendimiento_turtle.penup()
+        self.rendimiento_turtle.setpos(0, -150)
+        self.rendimiento_turtle.write("Rendimiento: {}%".format(self.desempeño(Ambiente)), align="center", font=("Arial", 9, "normal"))
     def sumar_movimiento(self):
         self.contador_movimientos += 1
         self.contador_turtle.clear()
@@ -176,6 +180,8 @@ class IAspirador(Ambiente):
         total_habitaciones = len(Ambiente.localizacion)
         habitaciones_limpias = sum(1 for estado in Ambiente.localizacion.values() if estado == 0)
         porcentaje_limpias = (habitaciones_limpias / total_habitaciones) * 100
+        self.rendimiento_turtle.clear()
+        self.rendimiento_turtle.write("Rendimiento: {}%".format(porcentaje_limpias), align="center", font=("Arial", 9, "normal"))
         return porcentaje_limpias
        
 ElAmbiente=Ambiente()

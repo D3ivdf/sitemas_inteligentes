@@ -19,4 +19,23 @@
 
     Salida y Finalización:
          El codigo original finaliza mostrando las dos localizaciones limpias en la pantalla y termina la ejecución.
-         después de limpiar todas las localizaciones, imprime el estado final del ambiente y el rendimiento del aspirador en términos de movimientos realizados. Luego, espera antes de finalizar la ejecución, lo que permite al usuario ver los resultados durante un tiempo antes de que el programa termine.
+         después de limpiar todas las localizaciones, imprime el estado final del ambiente y el rendimiento del aspirador en términos de movimientos realizados. 
+         Luego, espera antes de finalizar la ejecución, lo que permite al usuario ver los resultados durante un tiempo antes de que el programa termine.
+    
+    Heuristica: Exploración Eficiente.
+        Necesitamos definir cómo representar el estado del problema y cómo 
+        generar los sucesores de un estado dado. En este caso, el estado 
+        del problema puede ser la configuración actual de suciedad 
+        en las habitaciones, y los sucesores pueden ser las diferentes
+        acciones que el aspirador puede tomar.
+
+        Necesitamos una función de evaluación que estime cuán "bueno" es
+        un estado dado. Esta función puede basarse en el número de habitaciones sucias 
+        que quedan por limpiar, así como en la distancia de las habitaciones sucias más cercanas al 
+        aspirador.
+        
+        Utilizaremos el algoritmo A* para buscar la secuencia óptima de acciones que el 
+        aspirador debe tomar para limpiar todas las habitaciones de manera 
+        eficiente. Esto implica una exploración de las posibles acciones, 
+        teniendo en cuenta la heurística para guiar la búsqueda hacia la 
+        solución óptima.
