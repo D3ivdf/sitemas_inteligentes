@@ -211,7 +211,13 @@ class IAspirador(Ambiente):
     def mover_aspiradora(self, Ambiente, habitacion):
         x_objetivo, y_objetivo = Ambiente.posiciones[habitacion]
         Asp.setpos(x_objetivo, y_objetivo)
-
+    
+    def desempeño(self):
+        desempeño = 0
+        desepeño_max = 100
+        desempeño = (self.contador_movimientos)*desepeño_max
+        
+        return desempeño/4
        
     # def moverse(self,Ambiente):
     #     posiciones = [[-120, 0], [120, 0], [120, -150], [-120, -150]]
@@ -242,5 +248,7 @@ ElAspirador.verifica_estado_ambiente(ElAmbiente)
 
 #### Al terminar muestra los dos lados limpios
 print("\nDespues de la accion del  aspirador, el ambiente esta:  ", ElAmbiente.localizacion)
+sleep(5)
+print("\nEl desempeño del aspirador es: ", ElAspirador.desempeño(), "%")
 sleep(5)
 #quit()
